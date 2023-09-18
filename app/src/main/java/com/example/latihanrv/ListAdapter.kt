@@ -49,7 +49,9 @@ class ListAdapter(private val viewModel : RvViewModel) : RecyclerView.Adapter<Li
         if( position in 0 until viewModel.menu.value!!.size){
             viewModel.menu.value!!.removeAt(position)
             notifyItemRemoved(position)
-            notifyItemRangeChanged(position , viewModel.menu.value!!.size - position)
+//            notifyItemRangeChanged(position , viewModel.menu.value!!.size - position)
+            Log.i("datarv", viewModel.menu.value!!.size.toString())
+            Log.i("datarv", position.toString())
 
         }
     }

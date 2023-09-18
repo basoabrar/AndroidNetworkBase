@@ -15,7 +15,7 @@
     </fragment>
     <fragment
         android:id="@+id/secondFragment"
-        android:name="com.example.latihanrv.detail.SecondFragment"
+        android:name="com.example.latihanrv.detail.fetched.SecondFragment"
         android:label="fragment_second"
         tools:layout="@layout/fragment_second" >
         <argument
