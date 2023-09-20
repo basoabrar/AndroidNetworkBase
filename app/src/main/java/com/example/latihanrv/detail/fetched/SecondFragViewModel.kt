@@ -20,7 +20,7 @@ class SecondFragViewModel : ViewModel() {
     private fun initData() {
         ApiCall.retrofitService.showList().enqueue(object: Callback<String> {
                 override fun onFailure (call: Call<String>, t: Throwable) {
-            _response.value = "FAILED"
+            _response.value = t.message
         }
                 override fun onResponse (call: Call<String>, response: Response<String>) {
             _response.value = response.body()

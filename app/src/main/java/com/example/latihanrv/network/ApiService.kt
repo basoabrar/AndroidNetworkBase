@@ -9,11 +9,12 @@ import retrofit2.http.GET
 
 private val retrofit = Retrofit. Builder()
     .addConverterFactory(ScalarsConverterFactory.create())
-    .baseUrl("https://api.github.com/")
+    .baseUrl("http://10.0.2.2:5000/")
     .build()
+
 //API interface
 interface ApiService{
-    @GET("repos/laravel/laravel/contributors")
+    @GET("songs")
     fun showList():
             Call<String>
 }
