@@ -6,33 +6,42 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.latihanrv.ListAdapter
+
 import com.example.latihanrv.R
-import com.example.latihanrv.RvViewModel
 
 import com.example.latihanrv.databinding.FragmentHomeBinding
-
+import com.example.latihanrv.detail.fetched.HomeAdapter.SongListAdapter
 
 
 class HomeFragment : Fragment() {
-    private lateinit var viewModel: RvViewModel
+
+
+    private lateinit var viewModel: HomeViewModel
     private lateinit var binding: FragmentHomeBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home,container, false)
-        viewModel = ViewModelProvider(this).get(RvViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
         var viewManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL , false)
-        var viewAdapter = ListAdapter(
-            viewModel
-        )
+
+
+
+
+
+        val viewAdapter = SongListAdapter()
+        binding.rv.adapter = viewAdapter
 
         binding.rv.layoutManager = viewManager
-        binding.rv.adapter = viewAdapter
+
+        viewModel.menu.observe(this , Observer {
+            list -> viewAdapter.submitList(list)
+        })
 
 
 
@@ -41,6 +50,12 @@ class HomeFragment : Fragment() {
           it.findNavController().navigate(R.id.action_homeFragment_to_secondFragment)
         }
         return binding.root
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.refresh()
+
     }
 
 }
